@@ -11,8 +11,9 @@ app = Flask(__name__)
 
 # Setting statsd host and port
 setting_statsd()
+
 # Add statsd middleware to track each request and send statsd UDP request
-app.wsgi_app = StatsdMiddleware(app.wsgi_app, "flask-monitoring")
+app.wsgi_app = StatsdMiddleware(app.wsgi_app, "flask-hvzn")
 
 @app.route("/")
 def hello_world():
