@@ -8,11 +8,13 @@ services:
     environment:
       STATSD_HOST: "statsd-exporter"
       STATSD_PORT: "9125"
+
   statsd-exporter:
-    image: prom/statsd-exporter:v0.22.4
+    image: prom/statsd-exporter:v0.23.0
     ports:
-      - "9125:9125"
-      - "9102:9102"
+      - "9125:9125" # Port Accept metrics from api
+      - "9102:9102" # port will scrape by promet
+
   prometheus:
     image: prom/prometheus:v2.33.5
     ports:
@@ -21,6 +23,7 @@ services:
       - ./etc/prometheus:/workspace
     command:
       - '--config.file=/workspace/prometheus.yml'
+      
   grafana:
     image: grafana/grafana:9.3.6-ubuntu
     ports:
